@@ -12,7 +12,17 @@ from pathlib import Path
 import pandas as pd
 
 # Change this path, or set the environment variable PATHSNAP_DATA
-DATA_ROOT = Path(os.environ.get("PATHSNAP_DATA", "Student folder"))
+def _find_data_root():
+    env_data = os.environ.get("PATHSNAP_DATA")
+    if env_data and Path(env_data).exists():
+        return Path(env_data)
+    candidates = [Path("Student folder"), Path(".."), Path(".")]
+    for cand in candidates:
+        if (cand / "train").exists() and (cand / "student_test").exists():
+            return cand
+    return Path("Student folder")
+
+DATA_ROOT = _find_data_root()
 
 
 def list_trips(partition):
