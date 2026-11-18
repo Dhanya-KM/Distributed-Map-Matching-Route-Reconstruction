@@ -1,0 +1,7 @@
+Student folder/
+*.zip
+__pycache__/
+.env
+.ipynb_checkpoints/
+venv/
+.venv/
