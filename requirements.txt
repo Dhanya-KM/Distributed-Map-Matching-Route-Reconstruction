@@ -4,3 +4,7 @@ scipy
 matplotlib
 folium
 scikit-learn
+shapely
+pyproj
+fastapi
+uvicorn

@@ -16,7 +16,7 @@ from data_processing.loader import DATA_ROOT, load_trip
 def build_map(d, pad=0.003):
     tr, nodes, arcs, route = d["track"], d["nodes"], d["arcs"], d["route"]
     centre = [tr.lat.mean(), tr.lon.mean()]
-    m = folium.Map(location=centre, zoom_start=14, tiles="OpenStreetMap")
+    m = folium.Map(location=centre, zoom_start=14, tiles=None)
 
     def seg(a):  # arc id -> [[lat, lon], [lat, lon]]  (Folium wants lat, lon!)
         f, t = arcs.iloc[a]
@@ -35,14 +35,14 @@ def build_map(d, pad=0.003):
     if route is not None:
         ref = folium.FeatureGroup("Reference route (green)", show=True)
         for a in route:
-            folium.PolyLine(seg(a), color="green", weight=5, opacity=0.8).add_to(ref)
+            folium.PolyLine(seg(a), color="green", weight=9, opacity=0.55).add_to(ref)
         ref.add_to(m)
 
     # raw GPS points
     gps = folium.FeatureGroup("Raw GPS points (blue)", show=True)
     for i, r in tr.iterrows():
-        folium.CircleMarker([r.lat, r.lon], radius=2, color="blue",
-                            fill=True, tooltip=f"#{i}  t={r.t:.0f}s").add_to(gps)
+        folium.CircleMarker([r.lat, r.lon], radius=2, color="blue", weight=0,
+                            fill=True, fill_opacity=1, tooltip=f"#{i}  t={r.t:.0f}s").add_to(gps)
     gps.add_to(m)
 
     m.fit_bounds([[tr.lat.min(), tr.lon.min()], [tr.lat.max(), tr.lon.max()]])
