@@ -10,7 +10,7 @@ Version 1 is frozen: 50 m radius, 10 features, seed 42. The model is not retrain
 ## 1. Install (Python 3.11 or newer; tested on 3.12)
 
 ```bash
-git clone https://github.com/ayaanGH06/pathsnap.git
+git clone "https://github.com/Dhanya-KM/Distributed-Map-Matching-Route-Reconstruction"
 cd pathsnap
 python3.12 -m venv .venv          # any Python >= 3.11
 source .venv/bin/activate         # Windows: .venv\Scripts\activate
